@@ -100,5 +100,15 @@ exec-to-string command, but it works and seems fast"
 ;; TODO: set up ri
 ;; TODO: electric
 
+
+;; M2YM rsense
+(eval-after-load 'ruby-mode
+  '(progn
+     (require 'rsense)
+     (add-hook 'ruby-mode-hook
+               (lambda ()
+                 (add-to-list 'ac-sources 'ac-source-rsense-method)
+                 (add-to-list 'ac-sources 'ac-source-rsense-constant)))))
+
 (provide 'starter-kit-ruby)
 ;; starter-kit-ruby.el ends here

@@ -24,6 +24,15 @@
 
 (add-to-list 'load-path dotfiles-dir)
 
+
+;; You can keep elisp source in the =src= directory.  Packages loaded
+;; from here will override those installed by ELPA.  This is useful if
+;; you want to track the development versions of a project, or if a
+;; project is not in elpa.
+
+(setq elisp-source-dir (concat dotfiles-dir "src"))
+(add-to-list 'load-path elisp-source-dir)
+
 (require 'package)
 (package-initialize)
 (require 'starter-kit-elpa)
@@ -61,6 +70,17 @@
 
 (regen-autoloads)
 (load custom-file 'noerror)
+
+
+;; Load src dir after all esk loaded
+
+(if (file-exists-p elisp-source-dir)
+    (let ((default-directory elisp-source-dir))
+      (normal-top-level-add-subdirs-to-load-path)))
+
+;; Our customized stuff starting here
+
+(require 'starter-kit-m2ym)
 
 ;; You can keep system- or user-specific customizations here
 (setq system-specific-config (concat dotfiles-dir system-name ".el")

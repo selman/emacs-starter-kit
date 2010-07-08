@@ -1,8 +1,7 @@
 require 'git'
-require 'logger'
 
 # git specific values can be change and use another repository
-GIT_OWNER = "technomancy"
+GIT_OWNER = ENV[:OWNER] || "selman"
 GIT_NAME = "emacs-starter-kit"
 GIT_DEFAULT_BRANCH = "master"
 GIT_REMOTE_URLS = {
@@ -10,22 +9,27 @@ GIT_REMOTE_URLS = {
   :git => "git://github.com/#{GIT_OWNER}/#{GIT_NAME}.git"
 }
 
+# deactivate for logging
+@g = Git.open(Dir.pwd)
+
+# activate below for logging
+#require 'logger'
+#@g = Git.open(Dir.pwd, :log => Logger.new(STDOUT))
+
 # user specific values obeyed the github's forking guide
-@g = Git.open(Dir.pwd, :log => Logger.new(STDOUT))
-REMOTE_ORIGIN_URL = @g.config["remote.origin.url"]
+# if you don't want to use your machine user change below
 BRANCH = ENV[:USER]
 REMOTE = "upstream"
-PUSH_REMOTE = "origin"
-PUSH_BRANCH = "master"
+REMOTE_ORIGIN_URL = @g.config["remote.origin.url"]
 
-@is_clone = false
+@is_fork = true
 GIT_REMOTE_URLS.values.each do |url|
-  @is_clone = true if REMOTE_ORIGIN_URL == url
+  @is_fork = false if REMOTE_ORIGIN_URL == url
 end
 
 task :default => ["update"]
 
-desc "installs my emacs for rails"
+desc "installs #{GIT_NAME} and creates/updates your #{BRANCH} branch"
 task :install do
   puts "preparing \".emacs.d\" directory"
   emacsd = File.join(ENV[:HOME], '.emacs.d')
@@ -34,36 +38,92 @@ task :install do
   end
   require 'fileutils'
   FileUtils.ln_s(Dir.pwd, emacsd)
-  if @is_clone
-    # create/checkout branch created as username
-    @g.branch(BRANCH).checkout if @is_clone
-  else
-    # add remote url if not added
+
+  # create/checkout branch created as username
+  @g.branch(BRANCH).checkout
+
+  # add remote upstream if it is a fork and upstream not added as remote
+  if @is_fork
     @g.add_remote(REMOTE, GIT_REMOTE_URLS[:git]) unless @g.config["remote.upstream.url"]
   end
+
+  # updates your submodules and other jobs
+  Rake::Task[:submodules].invoke
 end
 
 desc "pull and merge if it is a clone or fetch and merge if it is a fork"
 task :update do
-  if @is_clone
-    puts "pulling master branch and merging your #{BRANCH} branch"
-    @g.branch(GIT_DEFAULT_BRANCH).checkout
-    @g.pull
-    @g.branch(BRANCH).checkout
-    @g.merge(GIT_DEFAULT_BRANCH)
-  else
-    puts "fetching #{GIT_REMOTE_URLS[:git]} and merging your to fork"
+  # checkout branch to default branch and pull
+  # if it is a fork pulls any code comitted before
+  # if it is a clone it updates your default branch
+  puts "#{GIT_DEFAULT_BRANCH} pulling"
+  @g.branch(GIT_DEFAULT_BRANCH).checkout
+  @g.pull
+
+  # fetch remote and merge it to your default branch
+  if @is_fork
+    puts "fetching #{GIT_REMOTE_URLS[:git]} and merging to your #{GIT_DEFAULT_BRANCH} branch"
     @g.remote(REMOTE).fetch
     @g.remote(REMOTE).merge(GIT_DEFAULT_BRANCH)
   end
+
+  # return your branch and merge your default branch
+  puts "#{GIT_DEFAULT_BRANCH} branch merging to your #{BRANCH} branch"
+  @g.branch(BRANCH).checkout
+  @g.merge(GIT_DEFAULT_BRANCH)
+
+  # updates your submodules and other jobs
+  Rake::Task[:submodules].invoke
 end
 
-desc "push your changes to your fork"
-task :push do
-  if @is_clone
-    puts "your clone is readonly if you want to push your changes please fork"
-  else
-    puts "pushing your changes to your fork"
-    @g.push(PUSH_REMOTE, PUSH_BRANCH)
+desc "updates submodules"
+task :submodules do
+  # no submodule function in 'git' gem
+  puts "updating your submodules"
+  system('git submodule update --init')
+  Rake::Task[:rsense].invoke
+  # add here submodule specific install options
+  # example;
+  # system('cd src/org && make')
+end
+
+desc "updates #{ENV[:HOME]}/.rsense run this after every gem install to get new completions"
+task :rsense do
+  puts "creating .rsense file"
+  system("ruby src/rsense/etc/config.rb > #{ENV[:HOME]}/.rsense")
+end
+
+if @is_fork
+  desc "merges your #{BRANCH} branch to #{GIT_DEFAULT_BRANCH} branch"
+  task :merge do
+    Rake::Task[:update].invoke
+    puts "merging your changes at #{BRANCH} branch to #{GIT_DEFAULT_BRANCH} branch"
+    @g.branch(GIT_DEFAULT_BRANCH).checkout
+    @g.merge(BRANCH)
   end
+
+  desc "pushs your changes to your fork"
+  task :push do
+    puts "pushing your changes to your fork"
+    # git push origin master
+    @g.push()
+  end
+end
+
+desc "create static package"
+task :package do
+  require 'fileutils'
+  require 'date'
+  today = Date.today
+  packagename = "esk-selman-#{today.year}-#{today.month}-#{today.day}"
+  emacsd = ".emacs.d"
+
+  puts "creating package #{packagename}"
+  @g.branch(GIT_DEFAULT_BRANCH).checkout
+  projectdir = Dir.pwd
+  Dir.chdir("..")
+  FileUtils.cp_r projectdir, emacsd
+  Dir.chdir(emacsd)
+  Dir["**/.git*"].each {|g| FileUtils.rm_rf g}
+  system("tar acf #{packagename}.tar.gz ../#{emacsd}")
 end

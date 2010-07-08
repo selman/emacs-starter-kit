@@ -21,10 +21,17 @@
      ;; TODO: submit these via M-x report-emacs-bug
      (add-to-list 'eshell-visual-commands "ssh")
      (add-to-list 'eshell-visual-commands "tail")
-     (add-to-list 'eshell-command-completions-alist
-                  '("gunzip" "gz\\'"))
-     (add-to-list 'eshell-command-completions-alist
-                  '("tar" "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'"))))
+                                        ;     (add-to-list 'eshell-command-completions-alist
+                                        ;                  '("gunzip" "gz\\'"))
+                                        ;     (add-to-list 'eshell-command-completions-alist
+                                        ;                  '("tar"
+                                        ;                  "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'")
+     (add-to-list 'ac-modes 'eshell-mode)
+     (add-hook 'eshell-mode-hook
+               (lambda ()
+                 (add-to-list 'ac-sources ac-source-files-in-current-dir)))
+     ))
+
 
 (defun eshell/cds ()
   "Change directory to the project's root."
