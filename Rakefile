@@ -1,7 +1,7 @@
 require 'git'
 
 # git specific values can be change and use another repository
-GIT_OWNER = ENV[:OWNER] || "selman"
+GIT_OWNER = ENV[:GIT_OWNER] || "selman"
 GIT_NAME = "emacs-starter-kit"
 GIT_DEFAULT_BRANCH = "master"
 GIT_REMOTE_URLS = {
@@ -123,7 +123,6 @@ task :package do
   projectdir = Dir.pwd
   Dir.chdir("..")
   FileUtils.cp_r projectdir, emacsd
-  Dir.chdir(emacsd)
-  Dir["**/.git*"].each {|g| FileUtils.rm_rf g}
-  system("tar acf #{packagename}.tar.gz ../#{emacsd}")
+  Dir["#{emacsd}/**/.git*"].each {|g| FileUtils.rm_rf g}
+  system("tar acf #{packagename}.tar.gz #{emacsd} && rm -rf #{emacsd}")
 end
