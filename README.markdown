@@ -1,3 +1,29 @@
+# Changes from Emacs Starter Kit
+
+This modifications firstly targeting Ruby users and some modifications like
+"auto-complete" usefull for all users. You can add not included
+usefull packages like "rinari" for Ruby on Rails through ELPA.
+
+* added "Rakefile" changed install method (look Installation)
+* latest compiled rsense added
+* auto-complete added as submodule
+* ecb added as submodule
+* yasnippet added as submodule (no need to install from ELPA)
+* color-theme and themes removed from "elisp-to-submit" and added as submodule
+* css-mode and yaml-mode removed from automatic install
+* menu-bar-mode enabled
+
+## Requirements
+
+* Emacs >= 23.2
+  for ecb if you have lower version you can install "cedet" or disable
+  "ecb" to use
+* Java runtime Sun or Openjdk
+  for rsense if you don't want to install disable rsense
+* git gem (sudo gem install git)
+  for installation and updating if you don't want install static
+  package http://github.com/selman/emacs-starter-kit/downloads
+
 # Emacs Starter Kit
 
 The Starter Kit should provide a saner set of defaults than you get
@@ -19,24 +45,32 @@ screencast](http://peepcode.com/products/meet-emacs) helpful. The
 
 ## Installation
 
-1. Install GNU Emacs (at least version 22, 23 is preferred)
-   Use your package manager if you have one.
-   Otherwise Mac users may get [some prebuilt binaries](http://emacsformacosx.com/), and
-   Windows users can get them [from GNU](http://ftp.gnu.org/pub/gnu/emacs/windows/emacs-23.1-bin-i386.zip).
-2. Move the directory containing this file to ~/.emacs.d
-   (If you already have a directory at ~/.emacs.d move it out of the
-   way and put this there instead.)
-3. Launch Emacs!
+Choose one of the installation methods:
+
+1. Static package
+   * Download [Download Page](http://github.com/selman/emacs-starter-kit/downloads)
+   * backup your "~/.emacs.d" folder
+   * cd ~/ && tar zxvf esk-selman-x-x-x.tar.gz
+
+2. Cloning
+   * git clone git://github.com/selman/emacs-starter-kit.git
+   * cd emacs-starter-kit
+   * rake install
+
+3. Forking
+   * git clone git@github.com:YOURUSER/emacs-starter-kit.git
+   * cd emacs-start-kit
+   * rake install
+
+if you installed as 2. or 3. you can update with "rake update". if you
+installed as 3. you can push your changes with "rake merge" then "rake
+push" (if you want to save your branch to github use "git push all"
+you must add your personel files to ".gitignore")
 
 If you find yourself missing some autoloads after an update (which
 should manifest itself as "void function: foobar" errors) try M-x
 regen-autoloads. After some updates an M-x recompile-init will be
 necessary; this should be noted in the commit messages.
-
-If you want to keep your regular ~/.emacs.d in place and just launch a
-single instance using the starter kit, try the following invocation:
-
-  $ emacs -q -l ~/src/emacs-starter-kit/init.el
 
 Note that having a ~/.emacs file might override the starter kit
 loading, so if you've having trouble loading it, make sure that file
@@ -48,6 +82,10 @@ The init.el file is where everything begins. It's the first file to
 get loaded. The starter-kit-* files provide what I consider to be
 better defaults, both for different programming languages and for
 built-in Emacs features like bindings or registers.
+
+Directories under the "src" directory will be added the load-path
+automatic. if you added any folder or submodule here you don't need
+to define load-path.
 
 Files that are pending submission to ELPA are bundled with the starter
 kit under the directory elpa-to-submit/. The understanding is that
@@ -91,6 +129,9 @@ starter-kit-elpa-install in a fresh instance.
 
 ## Variants of Emacs
 
+if your Emacs version lower than 23.2 you must install "cedet" or
+disable "ecb".
+
 The Starter Kit is designed to work with GNU Emacs version 22 or
 greater. Using it with forks or other variants is not supported. It
 probably won't work with XEmacs, though some have reported getting it
@@ -120,3 +161,13 @@ The latest version is at http://github.com/technomancy/emacs-starter-kit/
 
 On Unix, /home/$USER/.emacs.d, on windows Documents and Settings/%your
 user name%/Application Data
+
+## Note on Patches/Pull Requests
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+[Twitter](http://twitter.com/selmanulug)
