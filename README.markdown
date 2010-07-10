@@ -55,11 +55,13 @@ Choose one of the installation methods:
 2. Cloning
    * git clone git://github.com/selman/emacs-starter-kit.git
    * cd emacs-starter-kit
+   * git submodule update --init
    * rake install
 
 3. Forking
    * git clone git@github.com:YOURUSER/emacs-starter-kit.git
    * cd emacs-start-kit
+   * git submodule update --init
    * rake install
 
 if you installed as 2. or 3. you can update with "rake update". if you
@@ -161,6 +163,12 @@ The latest version is at http://github.com/technomancy/emacs-starter-kit/
 
 On Unix, /home/$USER/.emacs.d, on windows Documents and Settings/%your
 user name%/Application Data
+
+## Known Problems
+
+"git submodule update --init" must be run manualy or "rake install"
+giving errors but after first run "git submodule update --init"
+working from "Rakefile".
 
 ## Note on Patches/Pull Requests
 

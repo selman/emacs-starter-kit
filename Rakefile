@@ -33,10 +33,10 @@ desc "installs #{GIT_NAME} and creates/updates your #{BRANCH} branch"
 task :install do
   puts "preparing \".emacs.d\" directory"
   emacsd = File.join(ENV[:HOME], '.emacs.d')
-  if File.exist?(emacsd)
-    File.symlink?(emacsd) ? File.delete(emacsd) : File.rename(emacsd, "#{emacsd}.bak")
-  end
   require 'fileutils'
+  if File.exist?(emacsd)
+    File.symlink?(emacsd) ? FileUtils.rm(emacsd) : File.rename(emacsd, "#{emacsd}.bak")
+  end
   FileUtils.ln_s(Dir.pwd, emacsd)
 
   # create/checkout branch created as username
