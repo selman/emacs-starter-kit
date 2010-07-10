@@ -1,6 +1,3 @@
-[submodule "src/auto-complete"]
-	path = src/auto-complete
-	url = git://github.com/m2ym/auto-complete.git
 [submodule "src/color-theme"]
 	path = src/color-theme
 	url = git://github.com/emacsmirror/color-theme.git
@@ -10,3 +7,6 @@
 [submodule "src/yasnippet"]
 	path = src/yasnippet
 	url = git://github.com/emacsmirror/yasnippet.git
+[submodule "src/auto-complete"]
+	path = src/auto-complete
+	url = git://github.com/m2ym/auto-complete.git

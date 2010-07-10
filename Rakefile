@@ -34,7 +34,7 @@ task :install do
   puts "preparing \".emacs.d\" directory"
   emacsd = File.join(ENV[:HOME], '.emacs.d')
   if File.exist?(emacsd)
-    File.symlink?(emacsd) ? File.unlink(emacsd) : File.rename(emacsd, "#{emacsd}.bak")
+    File.symlink?(emacsd) ? File.delete(emacsd) : File.rename(emacsd, "#{emacsd}.bak")
   end
   require 'fileutils'
   FileUtils.ln_s(Dir.pwd, emacsd)
