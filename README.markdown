@@ -6,6 +6,7 @@ usefull packages like "rinari" for Ruby on Rails through ELPA.
 
 * added "Rakefile" changed install method (look Installation)
 * latest compiled rsense added
+* rdebug added [from](http://github.com/mark-moseley/ruby-debug/tree/master/emacs/)
 * auto-complete added as submodule
 * ecb added as submodule
 * yasnippet added as submodule (no need to install from ELPA)
@@ -20,6 +21,8 @@ usefull packages like "rinari" for Ruby on Rails through ELPA.
   "ecb" to use
 * Java runtime Sun or Openjdk
   for rsense if you don't want to install disable rsense
+* ruby-debug or ruby-debug19 gem (gem install ruby-debug19)
+  for rdebug
 * git gem (sudo gem install git)
   for installation and updating if you don't want install static
   package http://github.com/selman/emacs-starter-kit/downloads

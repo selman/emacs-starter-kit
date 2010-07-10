@@ -123,6 +123,6 @@ task :package do
   projectdir = Dir.pwd
   Dir.chdir("..")
   FileUtils.cp_r projectdir, emacsd
-  Dir["#{emacsd}/**/.git*"].each {|g| FileUtils.rm_rf g}
+  Dir["#{emacsd}/**/{.git*,Rakefile}"].each {|g| FileUtils.rm_rf g}
   system("tar acf #{packagename}.tar.gz #{emacsd} && rm -rf #{emacsd}")
 end

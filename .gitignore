@@ -14,24 +14,18 @@ tmtags
 *.swp
 
 ## PROJECT::GENERAL
-loaddefs.el*
-backups/*
-auto-save-list
+.*
+*.elc
+loaddefs.el
 custom.el
-*elc
-places
-url/cookies
-elpa-to-submit/jabber/jabber.info
-elpa-to-submit/nxhtml/etc/schema/xhtml-loader.rnc
-thumbs/*
-oddmuse/*
-.newsrc-dribble
-.nnmail-cache
-/#.newsrc-dribble#
-.svn
-image-dired/
-elim/
-elpa-to-submit/nxhtml/etc/schema/xhtml-loader.rnc~
 session*
+auto-save-list
+places
 tramp
 ac-comphist.dat
+backups/
+url/
+thumbs/
+oddmuse/
+image-dired/
+elim/

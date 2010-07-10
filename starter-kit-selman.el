@@ -2,17 +2,20 @@
 ;;
 ;; Not part of the Emacs Starter Kit
 
-; latest color-theme from http://www.emacsmirror.org
+;; latest color-theme from http://www.emacsmirror.org
 (require 'color-theme)
 (color-theme-initialize)
 
-; latest yasnippets from http://www.emacsmirror.org
+;; latest yasnippets from http://www.emacsmirror.org
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory (concat src-dir "/yasnippet/snippets"))
 
+;; ruby-debug copied from
+;; http://github.com/mark-moseley/ruby-debug/tree/master/emacs/
+(require 'rdebug)
 
-; latest ecb from http://www.emacsmirror.org
+;; latest ecb from http://www.emacsmirror.org
 (require 'ecb)
 (setq ecb-tip-of-the-day nil)
 (ecb-activate)
@@ -32,4 +35,4 @@
 (toggle-fullscreen)
 
 (provide 'starter-kit-selman)
-;;; starter-kit-m2ym.el ends here
+;;; starter-kit-selman.el ends here
