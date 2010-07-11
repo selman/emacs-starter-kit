@@ -15,17 +15,18 @@
 (setq ac-dwim 3)                        ;Do what i mean
 (ac-flyspell-workaround)                ;to fix auto-complete when flyspell-mode on
 
-;; ruby-mode completion with rsense
+;; ruby-mode completion with rsense and yasnippet
 (add-hook 'ruby-mode-hook
           (lambda ()
-            (add-to-list 'ac-sources 'ac-source-rsense-method)
-            (add-to-list 'ac-sources 'ac-source-rsense-constant)))
+            (setq ac-sources
+                  (append '(ac-source-yasnippet ac-source-rsense-method ac-source-rsense-constant) ac-sources))))
 
 ;; filename completion for eshell-mode
 (add-to-list 'ac-modes 'eshell-mode)
 (add-hook 'eshell-mode-hook
 	  (lambda ()
-	    (add-to-list 'ac-sources ac-source-files-in-current-dir)))
+            (setq ac-sources
+                  (append '(ac-source-files-in-current-dir) ac-sources))))
 
 (provide 'starter-kit-m2ym)
 ;;; starter-kit-m2ym.el ends here

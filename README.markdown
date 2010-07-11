@@ -1,4 +1,4 @@
-# Changes from Emacs Starter Kit
+# Changes from Emacs Starter Kit #
 
 This modifications firstly targeting Ruby users and some modifications like
 "auto-complete" usefull for all users. You can add not included
@@ -14,44 +14,25 @@ usefull packages like "rinari" for Ruby on Rails through ELPA.
 * css-mode and yaml-mode removed from automatic install
 * menu-bar-mode enabled
 
-## Requirements
+## Requirements ##
 
 * Emacs >= 23.2
-  for ecb if you have lower version you can install "cedet" or disable
-  "ecb" to use
+  for ecb if you have lower version you can install "cedet" or don't activate
+  "ecb"
 * Java runtime Sun or Openjdk
   for rsense if you don't want to install disable rsense
 * ruby-debug or ruby-debug19 gem (gem install ruby-debug19)
-  for rdebug
+  for rdebug if you don't want to install disable rdebug
 * git gem (sudo gem install git)
-  for installation and updating if you don't want install static
-  package http://github.com/selman/emacs-starter-kit/downloads
+  for installation and updating if you don't want to use install from static
+  package [download page](http://github.com/selman/emacs-starter-kit/downloads)
 
-# Emacs Starter Kit
-
-The Starter Kit should provide a saner set of defaults than you get
-normally with Emacs. It was originally intended for beginners, but it
-should provide a reasonable working environment for anyone using Emacs
-for dynamic languages. It also bundles a number of useful libraries
-that are not distributed with Emacs for various reasons.
-
-The latest version is at http://github.com/technomancy/emacs-starter-kit/
-
-## Learning
-
-This won't teach you Emacs, but it'll make it easier to get
-comfortable. To access the tutorial, press control-h followed by t.
-
-You may also find the [PeepCode Meet Emacs
-screencast](http://peepcode.com/products/meet-emacs) helpful. The
-[Emacs Wiki](http://emacswiki.org) is also very handy.
-
-## Installation
+## Installation ##
 
 Choose one of the installation methods:
 
 1. Static package
-   * Download [Download Page](http://github.com/selman/emacs-starter-kit/downloads)
+   * Download from [download page](http://github.com/selman/emacs-starter-kit/downloads)
    * backup your "~/.emacs.d" folder
    * cd ~/ && tar zxvf esk-selman-x-x-x.tar.gz
 
@@ -81,7 +62,52 @@ Note that having a ~/.emacs file might override the starter kit
 loading, so if you've having trouble loading it, make sure that file
 is not present.
 
-## Structure
+## Sample "custom.el" ##
+
+`
+;; color-theme no need require
+(color-theme-clarity)
+;; only ecb not required default
+(require 'ecb)
+(ecb-activate)
+`
+
+## Known Problems ##
+
+"git submodule update --init" must be run manualy or "rake install"
+giving errors but after first run "git submodule update --init"
+working from "Rakefile".
+
+## Note on Patches/Pull Requests ##
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+[Twitter](http://twitter.com/selmanulug)
+
+# Emacs Starter Kit #
+
+The Starter Kit should provide a saner set of defaults than you get
+normally with Emacs. It was originally intended for beginners, but it
+should provide a reasonable working environment for anyone using Emacs
+for dynamic languages. It also bundles a number of useful libraries
+that are not distributed with Emacs for various reasons.
+
+The latest version is at http://github.com/technomancy/emacs-starter-kit/
+
+## Learning ##
+
+This won't teach you Emacs, but it'll make it easier to get
+comfortable. To access the tutorial, press control-h followed by t.
+
+You may also find the [PeepCode Meet Emacs
+screencast](http://peepcode.com/products/meet-emacs) helpful. The
+[Emacs Wiki](http://emacswiki.org) is also very handy.
+
+## Structure ##
 
 The init.el file is where everything begins. It's the first file to
 get loaded. The starter-kit-* files provide what I consider to be
@@ -110,7 +136,7 @@ where you should put code that you don't think would be useful to
 everyone. That will allow you to merge with newer versions of the
 starter-kit without conflicts.
 
-## Emacs Lisp Package Archive
+## Emacs Lisp Package Archive ##
 
 Libraries from [ELPA](http://tromey.com/elpa) are preferred when
 available since dependencies are handled automatically, and the burden
@@ -132,10 +158,10 @@ packages. If you run into problems with such a package, try removing
 everything from inside the elpa/ directory and invoking M-x
 starter-kit-elpa-install in a fresh instance.
 
-## Variants of Emacs
+## Variants of Emacs ##
 
 if your Emacs version lower than 23.2 you must install "cedet" or
-disable "ecb".
+don't activate "ecb".
 
 The Starter Kit is designed to work with GNU Emacs version 22 or
 greater. Using it with forks or other variants is not supported. It
@@ -143,7 +169,7 @@ probably won't work with XEmacs, though some have reported getting it
 to work with Aquamacs. However, since Aquamacs is not portable,
 it's difficult to test in it, and breakage is common.
 
-## Contributing
+## Contributing ##
 
 If you know your way around Emacs, please try out the starter kit as a
 replacement for your regular dotfiles for a while. If there's anything
@@ -166,19 +192,3 @@ The latest version is at http://github.com/technomancy/emacs-starter-kit/
 
 On Unix, /home/$USER/.emacs.d, on windows Documents and Settings/%your
 user name%/Application Data
-
-## Known Problems
-
-"git submodule update --init" must be run manualy or "rake install"
-giving errors but after first run "git submodule update --init"
-working from "Rakefile".
-
-## Note on Patches/Pull Requests
-
-* Fork the project.
-* Make your feature addition or bug fix.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
-
-[Twitter](http://twitter.com/selmanulug)
