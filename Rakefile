@@ -1,7 +1,7 @@
 require 'git'
 
 # git specific values can be change and use another repository
-GIT_OWNER = ENV[:GIT_OWNER] || "selman"
+GIT_OWNER = ENV['GIT_OWNER'] || "selman"
 GIT_NAME = "emacs-starter-kit"
 GIT_DEFAULT_BRANCH = "master"
 GIT_REMOTE_URLS = {
@@ -18,7 +18,7 @@ GIT_REMOTE_URLS = {
 
 # user specific values obeyed the github's forking guide
 # if you don't want to use your machine user change below
-BRANCH = ENV[:USER]
+BRANCH = ENV['USER']
 REMOTE = "upstream"
 REMOTE_ORIGIN_URL = @g.config["remote.origin.url"]
 
@@ -32,7 +32,7 @@ task :default => ["update"]
 desc "installs #{GIT_NAME} and creates/updates your #{BRANCH} branch"
 task :install do
   puts "preparing \".emacs.d\" directory"
-  emacsd = File.join(ENV[:HOME], '.emacs.d')
+  emacsd = File.join(ENV['HOME'], '.emacs.d')
   require 'fileutils'
   if File.exist?(emacsd)
     File.symlink?(emacsd) ? FileUtils.rm(emacsd) : File.rename(emacsd, "#{emacsd}.bak")
@@ -87,10 +87,10 @@ task :submodules do
   # system('cd src/org && make')
 end
 
-desc "updates #{ENV[:HOME]}/.rsense run this after every gem install to get new completions"
+desc "updates #{ENV['HOME']}/.rsense run this after every gem install to get new completions"
 task :rsense do
   puts "creating .rsense file"
-  system("ruby src/rsense/etc/config.rb > #{ENV[:HOME]}/.rsense")
+  system("ruby src/rsense/etc/config.rb > #{ENV['HOME']}/.rsense")
 end
 
 if @is_fork
