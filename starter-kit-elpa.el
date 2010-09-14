@@ -8,6 +8,7 @@
                                    'ruby-mode
                                    'inf-ruby
                                    'ruby-electric
+                                   'zenburn
                                    'htmlize
                                    'find-file-in-project
                                    'magit
