@@ -1,4 +1,5 @@
 require 'git'
+require 'fileutils'
 
 # git specific values can be change and use another repository
 GIT_OWNER = ENV['GIT_OWNER'] || "selman"
@@ -33,7 +34,6 @@ desc "installs #{GIT_NAME} and creates/updates your #{BRANCH} branch"
 task :install do
   puts "preparing \".emacs.d\" directory"
   emacsd = File.join(ENV['HOME'], '.emacs.d')
-  require 'fileutils'
   if File.exist?(emacsd)
     File.symlink?(emacsd) ? FileUtils.rm(emacsd) : File.rename(emacsd, "#{emacsd}.bak")
   end
@@ -112,7 +112,6 @@ end
 
 desc "create static package"
 task :package do
-  require 'fileutils'
   require 'date'
   today = Date.today
   packagename = "esk-selman-#{today.year}-#{today.month}-#{today.day}"
@@ -122,7 +121,8 @@ task :package do
   @g.branch(GIT_DEFAULT_BRANCH).checkout
   projectdir = Dir.pwd
   Dir.chdir("..")
-  FileUtils.cp_r projectdir, emacsd
+  p = Git.clone(projectdir, emacsd)
+  p.chdir { system("git submodule update --init") }
   Dir["#{emacsd}/**/{.git*,Rakefile}"].each {|g| FileUtils.rm_rf g}
   system("tar acf #{packagename}.tar.gz #{emacsd} && rm -rf #{emacsd}")
 end
