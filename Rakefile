@@ -37,15 +37,13 @@ task :install do
   if File.exist?(emacsd)
     File.symlink?(emacsd) ? FileUtils.rm(emacsd) : File.rename(emacsd, "#{emacsd}.bak")
   end
-  FileUtils.ln_s(Dir.pwd, emacsd)
+  symlink(Dir.pwd, emacsd)
 
   # create/checkout branch created as username
   @g.branch(BRANCH).checkout
 
   # add remote upstream if it is a fork and upstream not added as remote
-  if @is_fork
-    @g.add_remote(REMOTE, GIT_REMOTE_URLS[:git]) unless @g.config["remote.upstream.url"]
-  end
+  @g.add_remote(REMOTE, GIT_REMOTE_URLS[:git]) if @is_fork && @g.config['remote.upstream.url'].nil?
 
   # updates your submodules and other jobs
   Rake::Task[:submodules].invoke
@@ -80,17 +78,17 @@ desc "updates submodules"
 task :submodules do
   # no submodule function in 'git' gem
   puts "updating your submodules"
-  system('git submodule update --init')
+  sh "git submodule update --init"
   Rake::Task[:rsense].invoke
   # add here submodule specific install options
   # example;
-  # system('cd src/org && make')
+  # sh 'cd src/org && make'
 end
 
 desc "updates #{ENV['HOME']}/.rsense run this after every gem install to get new completions"
 task :rsense do
   puts "creating .rsense file"
-  system("ruby src/rsense/etc/config.rb > #{ENV['HOME']}/.rsense")
+  ruby "src/rsense/etc/config.rb > #{ENV['HOME']}/.rsense"
 end
 
 if @is_fork
@@ -122,7 +120,7 @@ task :package do
   projectdir = Dir.pwd
   Dir.chdir("..")
   p = Git.clone(projectdir, emacsd)
-  p.chdir { system("git submodule update --init") }
-  Dir["#{emacsd}/**/{.git*,Rakefile}"].each {|g| FileUtils.rm_rf g}
-  system("tar acf #{packagename}.tar.gz #{emacsd} && rm -rf #{emacsd}")
+  p.chdir { sh "git submodule update --init" }
+  FileUtils.rm_rf Dir["#{emacsd}/**/{.git*,Rakefile}"]
+  sh "tar acf #{packagename}.tar.gz #{emacsd} && rm -rf #{emacsd}"
 end
