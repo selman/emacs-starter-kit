@@ -98,7 +98,10 @@ exec-to-string command, but it works and seems fast"
             'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
 
 ;; TODO: set up ri
-;; TODO: electric
+
+(eval-after-load 'ruby-mode
+  '(progn
+     (add-hook 'ruby-mode-hook (lambda () (ruby-electric-mode t)))))
 
 (provide 'starter-kit-ruby)
 ;; starter-kit-ruby.el ends here

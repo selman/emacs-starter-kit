@@ -7,8 +7,8 @@
 (defvar starter-kit-packages (list 'idle-highlight
                                    'ruby-mode
                                    'inf-ruby
-;                                   'css-mode
-;                                   'yaml-mode
+                                   'ruby-electric
+                                   'htmlize
                                    'find-file-in-project
                                    'magit
                                    'gist)
