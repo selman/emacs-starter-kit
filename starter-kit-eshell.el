@@ -4,6 +4,7 @@
 
 (setq eshell-cmpl-cycle-completions nil
       eshell-save-history-on-exit t
+      eshell-term-name "Eterm"
       eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
 
 (eval-after-load 'esh-opt
@@ -12,7 +13,6 @@
      (require 'em-term)
      (require 'em-cmpl)
      (setenv "PAGER" "cat")
-     (set-face-attribute 'eshell-prompt nil :foreground "turquoise1")
      (when (< emacs-major-version 23)
        (add-hook 'eshell-mode-hook ;; for some reason this needs to be a hook
                  '(lambda () (define-key eshell-mode-map "\C-a" 'eshell-bol)))
@@ -32,6 +32,12 @@
 
 (defun eshell/find (dir &rest opts)
   (find-dired dir (mapconcat 'identity opts " ")))
+
+(defun eshell/clear ()
+  "Clears eshell buffer"
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 
 ;; Port features from
 ;; http://blog.peepcode.com/tutorials/2009/shell-method-missing/shell_method_missing.rb
