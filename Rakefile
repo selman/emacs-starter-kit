@@ -124,3 +124,21 @@ task :package do
   FileUtils.rm_rf Dir["#{emacsd}/**/{.git*,Rakefile}"]
   sh "tar acf #{packagename}.tar.gz #{emacsd} && rm -rf #{emacsd}"
 end
+
+require 'rake/clean'
+CLEAN.include('{src,elpa-to-submit}/**/*.elc', '*.elc')
+
+desc "byte-compile lisp files"
+task :bytecompile do
+  load_paths = Dir['**/*.el'].map do |l|
+    "-L #{File.dirname(l)} "
+  end.uniq.join
+
+  Dir['{src,elpa-to-submit}/**/*.el', '*.el'].each do |lisp|
+    begin
+      sh "emacs -Q #{load_paths} -batch -f batch-byte-compile #{lisp}"
+    rescue
+      nil
+    end
+  end
+end
