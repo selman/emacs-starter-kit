@@ -15,5 +15,9 @@
 ;; http://github.com/mark-moseley/ruby-debug/tree/master/emacs/
 (require 'rdebug)
 
+;; Smex is a M-x enhancement
+(require 'smex)
+(smex-initialize)
+
 (provide 'starter-kit-selman)
 ;;; starter-kit-selman.el ends here

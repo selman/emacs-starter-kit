@@ -5,6 +5,7 @@
 (require 'cl)
 
 (defvar starter-kit-packages (list 'idle-highlight
+				   'smex
                                    'ruby-mode
                                    'inf-ruby
                                    'ruby-electric
