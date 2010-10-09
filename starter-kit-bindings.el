@@ -71,6 +71,9 @@
 ;; So good!
 (global-set-key (kbd "C-x g") 'magit-status)
 
+;; Real fullscreen
+(global-set-key [f11] 'toggle-fullscreen)
+
 ;; This is a little hacky since VC doesn't support git add internally
 (eval-after-load 'vc
   (define-key vc-prefix-map "i" '(lambda () (interactive)

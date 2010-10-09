@@ -204,8 +204,6 @@
                            (progn (setq old-fullscreen current-value)
                                   'fullboth)))))
 
-(global-set-key [f11] 'toggle-fullscreen)
-
 ;; Make new frames fullscreen by default. Note: this hook doesn't do
 ;; anything to the initial frame if it's in your .emacs, since that file is
 ;; read _after_ the initial frame is created.

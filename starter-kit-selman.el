@@ -15,7 +15,5 @@
 ;; http://github.com/mark-moseley/ruby-debug/tree/master/emacs/
 (require 'rdebug)
 
-(toggle-fullscreen)
-
 (provide 'starter-kit-selman)
 ;;; starter-kit-selman.el ends here
