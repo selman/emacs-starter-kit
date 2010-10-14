@@ -33,8 +33,9 @@ Choose one of the installation methods:
 
 1. Static package
    * Download from [download page](http://github.com/selman/emacs-starter-kit/downloads)
-   * backup your "~/.emacs.d" folder
-   * cd ~/ && tar zxvf esk-selman-x-x-x.tar.gz
+   * tar zxvf esk-selman-x-x-x.tar.gz
+   * cd esk-selman-x-x-x
+   * rake install
 
 2. Cloning
    * git clone git://github.com/selman/emacs-starter-kit.git
@@ -48,35 +49,42 @@ Choose one of the installation methods:
    * git submodule update --init
    * rake install
 
+**before "rake install" backup your ".emacs.d" folder**
+
 if you installed as 2. or 3. you can update with "rake update". if you
 installed as 3. you can push your changes with "rake merge" then "rake
-push" (if you want to save your branch to github use "git push all"
-you must add your personel files to ".gitignore")
-
-If you find yourself missing some autoloads after an update (which
-should manifest itself as "void function: foobar" errors) try M-x
-regen-autoloads. After some updates an M-x recompile-init will be
-necessary; this should be noted in the commit messages.
-
-Note that having a ~/.emacs file might override the starter kit
-loading, so if you've having trouble loading it, make sure that file
-is not present.
+push" (run "rake -T" for other rake options). If you want to save your
+branch to github use "git push all" you must add your personel files
+to ".gitignore".
 
 ## Sample "custom.el" ##
 
-`
-;; color-theme no need require
-(color-theme-clarity)
-;; only ecb not required default
-(require 'ecb)
-(ecb-activate)
-`
+ ;; color-theme no need require
+ (color-theme-clarity)
+ ;; only ecb not required default
+ (require 'ecb)
+ (ecb-activate)
 
 ## Known Problems ##
 
 "git submodule update --init" must be run manualy or "rake install"
 giving errors but after first run "git submodule update --init"
 working from "Rakefile".
+
+## Troubleshooting ##
+
+If you find yourself missing some autoloads after an update (which
+should manifest itself as "void function: foobar" errors) try M-x
+regen-autoloads. After some updates an M-x recompile-init will be
+necessary; this should be noted in the commit messages.
+
+Last solution for strange problems you can use "rake clobber" that
+will remove non git files and bytecompiled lisp files. **Backup your
+personal files like "custom.el"**
+
+**Note that having a ~/.emacs file might override the starter kit**
+loading, so if you've having trouble loading it, make sure that file
+is not present.
 
 ## Note on Patches/Pull Requests ##
 
