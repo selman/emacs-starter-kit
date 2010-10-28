@@ -10,3 +10,6 @@
 [submodule "src/auto-complete"]
 	path = src/auto-complete
 	url = git://github.com/m2ym/auto-complete.git
+[submodule "src/cucumber"]
+	path = src/cucumber
+	url = git://github.com/michaelklishin/cucumber.el.git

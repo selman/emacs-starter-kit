@@ -28,5 +28,12 @@
             (setq ac-sources
                   (append '(ac-source-files-in-current-dir) ac-sources))))
 
+;; completions for (feature/cucumber)-mode
+(add-to-list 'ac-modes 'feature-mode)
+(add-hook 'feature-mode-hook
+	  (lambda ()
+            (setq ac-sources
+                  (append '(ac-source-yasnippet) ac-sources))))
+
 (provide 'starter-kit-m2ym)
 ;;; starter-kit-m2ym.el ends here
