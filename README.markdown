@@ -13,6 +13,11 @@ usefull packages like "rinari" for Ruby on Rails through ELPA.
 * color-theme and themes removed from "elisp-to-submit" and added as submodule
 * css-mode and yaml-mode removed from automatic install
 * menu-bar-mode enabled
+* ...
+
+Features added to Emacs Starter Kit mostly united under two files
+**starter-kit-m2ym.el** and **starter-kit-selman.el**. You can look
+the features that is added but not activated in **custom.el.sample** file.
 
 ## Requirements ##
 
@@ -56,14 +61,6 @@ installed as 3. you can push your changes with "rake merge" then "rake
 push" (run "rake -T" for other rake options). If you want to save your
 branch to github use "git push all" you must add your personel files
 to ".gitignore".
-
-## Sample "custom.el" ##
-
- ;; color-theme no need require
- (color-theme-clarity)
- ;; only ecb not required default
- (require 'ecb)
- (ecb-activate)
 
 ## Known Problems ##
 
