@@ -78,6 +78,8 @@
 ;; Real fullscreen
 (global-set-key [f11] 'toggle-fullscreen)
 
+(global-set-key (kbd "C-c q") 'join-line)
+
 ;; This is a little hacky since VC doesn't support git add internally
 (eval-after-load 'vc
   (define-key vc-prefix-map "i" '(lambda () (interactive)

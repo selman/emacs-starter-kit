@@ -55,7 +55,7 @@
   (auto-fill-mode t))
 
 (defun turn-on-hl-line-mode ()
-  (if window-system (hl-line-mode t)))
+  (when (> (display-color-cells) 8) (hl-line-mode t)))
 
 (defun turn-on-save-place-mode ()
   (setq save-place t))
@@ -190,6 +190,13 @@
   (set (make-local-variable 'paredit-space-delimiter-chars)
        (list ?\"))
   (paredit-mode 1))
+
+(defun esk-space-for-delimiter? (endp delimiter)
+  (not (member major-mode '(ruby-mode espresso-mode js2-mode))))
+
+(eval-after-load 'paredit
+  '(add-to-list 'paredit-space-for-delimiter-predicates
+                'esk-space-for-delimiter?))
 
 (defun message-point ()
   (interactive)
