@@ -10,6 +10,8 @@
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory (concat src-dir "/yasnippet/snippets"))
+(setq yas/prompt-functions '(yas/ido-prompt))
+(setq yas/also-auto-indent-first-line t)
 
 ;; ruby-debug copied from
 ;; http://github.com/mark-moseley/ruby-debug/tree/master/emacs/
