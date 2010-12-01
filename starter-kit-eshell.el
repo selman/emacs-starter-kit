@@ -4,7 +4,6 @@
 
 (setq eshell-cmpl-cycle-completions nil
       eshell-save-history-on-exit t
-      eshell-term-name "Eterm"
       eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
 
 (eval-after-load 'esh-opt
@@ -13,6 +12,8 @@
      (require 'em-term)
      (require 'em-cmpl)
      (setenv "PAGER" "cat")
+     (add-hook 'eshell-mode-hook ;; for some reason this needs to be a hook
+               '(lambda () (eshell/export "TERM" "dumb")))
      (when (< emacs-major-version 23)
        (add-hook 'eshell-mode-hook ;; for some reason this needs to be a hook
                  '(lambda () (define-key eshell-mode-map "\C-a" 'eshell-bol)))
@@ -39,6 +40,13 @@
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)))
+
+;; (defun eshell/scp (&rest args)
+;;   "scp: now without colon-omitting annoyance!"
+;;   (when (null (remove-if-not (lambda (arg) (string-match ":" arg))
+;;                              args))
+;;     (error "Surely you meant to add a colon in there somewhere?"))
+;;   (shell-command (mapconcat 'identity (cons "scp" args) " ")))
 
 ;; Port features from
 ;; http://blog.peepcode.com/tutorials/2009/shell-method-missing/shell_method_missing.rb

@@ -202,6 +202,10 @@
   (interactive)
   (message "%s" (point)))
 
+(defun esk-disapproval ()
+  (interactive)
+  (insert "ಠ_ಠ"))
+
 (defun toggle-fullscreen (&optional f)
   (interactive)
   (let ((current-value (frame-parameter nil 'fullscreen)))
