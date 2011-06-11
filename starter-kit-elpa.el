@@ -4,8 +4,8 @@
 
 (require 'cl)
 
-(defvar starter-kit-packages (list 'idle-highlight
-				   'smex
+(defvar starter-kit-packages (list 'idle-highlight-mode
+                                   'smex
                                    'ruby-mode
                                    'inf-ruby
                                    'ruby-electric
