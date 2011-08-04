@@ -168,22 +168,20 @@ it's difficult to test in it, and breakage is common.
 
 ## Contributing ##
 
+Please see the note re: "Future" above; active development is only
+happening on the "v2" branch.
+
 If you know your way around Emacs, please try out the starter kit as a
 replacement for your regular dotfiles for a while. If there's anything
 you just can't live without, add it or let me know so I can add
 it. Take a look at what happens in init.el to get started.
 
-Also: see the file TODO. Helping submit new libraries to Marmalade is the
-easiest way to help out. There are two ways you can do this: either
-take new libraries and make them ready for Marmalade, dropping them in the
-elpa-to-submit directory or take files that are already in
-elpa-to-submit, ensuring all their dependencies are correctly loaded
-into Marmalade, and uploading them. Grep the project for TODO for other things.
+Also: Helping submit new libraries to Marmalade is the easiest way to
+help out. This involves ensuring the library's dependencies are all
+already packaged and then adding the appropriate package headers and
+autoload comments. It's best to contact the package maintainer to ask
+them if they mind having their software distributed on Marmalade. It's
+also ideal to push your autoload/header changes back upstream.
 
 Files are licensed under the same license as Emacs unless otherwise
 specified. See the file COPYING for details.
-
-The latest version is at http://github.com/technomancy/emacs-starter-kit/
-
-On Unix, /home/$USER/.emacs.d, on windows Documents and Settings/%your
-user name%/Application Data
