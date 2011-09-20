@@ -1,3 +1,7 @@
+# Moved to Emacs 24 and Emacs Starter Kit V2 #
+
+https://github.com/selman/.emacs.d
+
 # Changes from Emacs Starter Kit #
 
 This modifications firstly targeting Ruby users and some modifications like
